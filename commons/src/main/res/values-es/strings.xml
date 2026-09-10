@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="ok">De acuerdo</string>
+    <string name="ok">Confirmar</string>
     <string name="cancel">Cancelar</string>
     <string name="close">Cerrar</string>
     <string name="back">Atrás</string>
