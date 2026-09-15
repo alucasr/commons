@@ -57,6 +57,12 @@ class AboutActivity : BaseComposeActivity() {
     companion object {
         private const val EASTER_EGG_TIME_LIMIT = 3000L
         private const val EASTER_EGG_REQUIRED_CLICKS = 7
+
+        // optional hook: set by the hosting app before calling startAboutActivity()
+        // to react to a single tap on the version line (e.g. show a custom version
+        // history dialog). Cleared automatically after use so it never leaks across
+        // activity instances.
+        var onVersionSingleTap: (() -> Unit)? = null
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -301,6 +307,11 @@ class AboutActivity : BaseComposeActivity() {
     }
 
     private fun onVersionClick() {
+        onVersionSingleTap?.let {
+            it.invoke()
+            return
+        }
+
         if (firstVersionClickTS == 0L) {
             firstVersionClickTS = System.currentTimeMillis()
             Handler(Looper.getMainLooper()).postDelayed({
